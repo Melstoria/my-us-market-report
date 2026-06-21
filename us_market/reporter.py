@@ -54,16 +54,10 @@ def chg_sign(v): return f"+{v:.2f}%" if v > 0 else f"{v:.2f}%"
 
 # ── 섹터 자금흐름 블록 ─────────────────────
 
-def render_sector_flow(sector_flow, top_amount):
-    """섹터별 바 + 대표 종목 pill"""
+def render_sector_flow(sector_flow, top_amount=None):
+    """섹터별 바 + 대표 종목 pill (sector_flow[top_stocks] 사용)"""
     if not sector_flow:
         return "<p style='color:#9CA3AF'>데이터 없음</p>"
-
-    # 종목 → 섹터 매핑
-    ticker_by_sector = {}
-    for r in top_amount:
-        sec = r.get("sector", "Unknown")
-        ticker_by_sector.setdefault(sec, []).append(r)
 
     max_amt = sector_flow[0]["amount"] if sector_flow else 1
     html = ""
@@ -75,9 +69,9 @@ def render_sector_flow(sector_flow, top_amount):
         cc    = chg_cls(s["avg_change"])
         sign  = chg_sign(s["avg_change"])
 
-        # 대표 종목 pills (거래대금 상위 4개)
+        # 대표 종목 pills — sector_flow 안의 top_stocks 직접 사용
         pills = ""
-        for r in ticker_by_sector.get(sec, [])[:4]:
+        for r in s.get("top_stocks", [])[:4]:
             pc = chg_cls(r.get("change_pct", 0))
             pills += f"""<span class="st-pill">
               <span class="st-name">{r['ticker']}</span>
