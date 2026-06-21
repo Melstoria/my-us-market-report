@@ -414,8 +414,8 @@ def render_index_cards(index):
     vix = index.get("VIX", {})
     if vix:
         chg   = vix.get("change_pct", 0)
-        # VIX 하락 = 공포 감소 = 파랑(좋음), VIX 상승 = 공포 증가 = 빨강(나쁨)
-        color = "#EF4444" if chg > 0 else "#3B82F6"
+        # VIX 상승 = 공포 증가 = 파랑, VIX 하락 = 공포 감소 = 빨강
+        color = "#3B82F6" if chg > 0 else "#EF4444"
         price = f"{vix.get('price',0):.2f}"
         cs    = chg_sign(chg)
         html += (
