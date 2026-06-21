@@ -116,7 +116,7 @@ def fetch_universe_data(tickers: list, batch_size: int = 50) -> pd.DataFrame:
         print(f"  배치 수집 중: {i+1}~{i+len(batch)} / {len(valid_tickers)}")
         try:
             raw = yf.download(
-                batch, period="60d", interval="1d",
+                batch, period="1y", interval="1d",
                 progress=False, auto_adjust=True, group_by="ticker",
             )
             for ticker in batch:
