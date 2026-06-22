@@ -792,10 +792,6 @@ def build_report(analyzed):
     with open(out_path, "w", encoding="utf-8") as f:
         f.write(html)
 
-    idx_path = DOCS_DIR / "index.html"
-    with open(idx_path, "w", encoding="utf-8") as f:
-        f.write(html)
-
     print(f"✅ 리포트 생성: {out_path}")
     return str(out_path)
 
