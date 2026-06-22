@@ -27,8 +27,8 @@
     },
     "VIX": {
       "name": "VIX (공포지수)",
-      "price": 17.27,
-      "change_pct": 5.3,
+      "price": 17.35,
+      "change_pct": 5.79,
       "volume": 0
     }
   },
@@ -1802,7 +1802,7 @@
       "change_pct": 0.02,
       "volume": 3332800,
       "amount": 896923119.7265625,
-      "high_52w": 307.61,
+      "high_52w": 307.6,
       "is_52w_high": false,
       "sector": "Basic Materials"
     },
