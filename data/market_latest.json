@@ -27,8 +27,8 @@
     },
     "VIX": {
       "name": "VIX (공포지수)",
-      "price": 17.44,
-      "change_pct": 6.34,
+      "price": 17.45,
+      "change_pct": 6.4,
       "volume": 0
     }
   },
@@ -5338,6 +5338,17 @@
       "sector": "Industrials"
     },
     {
+      "ticker": "YUM",
+      "close": 151.99,
+      "prev_close": 154.07,
+      "change_pct": -1.35,
+      "volume": 4792200,
+      "amount": 728366504.3243408,
+      "high_52w": 168.57,
+      "is_52w_high": false,
+      "sector": "Consumer Cyclical"
+    },
+    {
       "ticker": "ZBRA",
       "close": 235.98,
       "prev_close": 232.98,
@@ -5347,6 +5358,17 @@
       "high_52w": 352.66,
       "is_52w_high": false,
       "sector": "Technology"
+    },
+    {
+      "ticker": "ZBH",
+      "close": 87.97,
+      "prev_close": 87.16,
+      "change_pct": 0.93,
+      "volume": 4635000,
+      "amount": 407740955.657959,
+      "high_52w": 107.45,
+      "is_52w_high": false,
+      "sector": "Healthcare"
     },
     {
       "ticker": "ZTS",
