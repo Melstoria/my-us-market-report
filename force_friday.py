@@ -60,3 +60,6 @@ print(f"   S&P500: {len(sp500_df)}개 / Nasdaq100: {len(ndx100_df)}개")
 analyzed = analyze(output)
 build_report(analyzed)
 print(f"\n✅ 리포트 생성 완료!")
+
+from us_market.update_index import build_index
+build_index()

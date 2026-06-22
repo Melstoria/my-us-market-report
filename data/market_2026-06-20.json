@@ -27,8 +27,8 @@
     },
     "VIX": {
       "name": "VIX (공포지수)",
-      "price": 16.4,
-      "change_pct": -11.06,
+      "price": 17.44,
+      "change_pct": 6.34,
       "volume": 0
     }
   },
