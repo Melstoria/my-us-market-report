@@ -785,14 +785,17 @@ def generate_html(analyzed):
 
 
 def build_report(analyzed):
-    date_str = analyzed.get("date", str(datetime.date.today()))
-    html = generate_html(analyzed)
+    date_str  = analyzed.get("date", str(datetime.date.today()))
+    html      = generate_html(analyzed)
 
-    out_path = DOCS_DIR / f"report_{date_str}.html"
+    # docs/daily/ 에 날짜별 저장
+    daily_dir = DOCS_DIR / "daily"
+    daily_dir.mkdir(exist_ok=True)
+    out_path  = daily_dir / f"{date_str}.html"
     with open(out_path, "w", encoding="utf-8") as f:
         f.write(html)
 
-    print(f"✅ 리포트 생성: {out_path}")
+    print(f"✅ 일간 리포트: {out_path}")
     return str(out_path)
 
 
