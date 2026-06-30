@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>US Market 월간 리포트 — 2026-06-30</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',sans-serif;
+     background:#fff;color:#1C1C1E;font-size:13px;line-height:1.5}
+.page{max-width:960px;margin:0 auto;padding:24px 20px 80px}
+
+/* Header */
+.hd-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px}
+.hd-title{font-size:22px;font-weight:700;letter-spacing:-.5px}
+.hd-sub{font-size:11px;color:#8E8E93;margin-top:3px}
+.mkt-tabs{display:flex;gap:6px;flex-wrap:wrap}
+.mkt-tab{padding:6px 18px;border-radius:20px;font-size:11px;font-weight:700;
+          border:1.5px solid #D1D5DB;color:#6B7280;cursor:pointer;transition:.15s;background:#fff}
+.mkt-tab.active{background:#1C1C1E;color:#fff;border-color:#1C1C1E}
+
+/* KPI */
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px}
+.kpi{background:#F9FAFB;border-radius:12px;padding:14px 16px}
+.kpi-lbl{font-size:10px;color:#8E8E93;font-weight:500;margin-bottom:5px}
+.kpi-val{font-size:22px;font-weight:700;letter-spacing:-.5px}
+.kpi-val.up,.kpi-sub.up{color:#EF4444}
+.kpi-val.dn,.kpi-sub.dn{color:#3B82F6}
+.kpi-val.blue{color:#3B82F6}
+.kpi-sub{font-size:10px;margin-top:3px}
+
+/* Section */
+.sec{margin-top:26px}
+.sec-title{font-size:13px;font-weight:700;color:#1C1C1E;margin-bottom:12px;
+            padding-left:10px;border-left:3px solid #3B82F6}
+
+/* Tab */
+.tab{display:none}.tab.active{display:block}
+
+/* Sector bar */
+.sb-block{margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid #F3F4F6}
+.sb-block:last-child{border-bottom:none;margin-bottom:0}
+.sb-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px}
+.sb-left{display:flex;align-items:center;gap:6px}
+.sb-ic{font-size:14px}
+.sb-nm{font-size:12.5px;font-weight:700;color:#1C1C1E}
+.sb-right{display:flex;align-items:center;gap:7px}
+.sb-amt{font-size:13px;font-weight:700;color:#1C1C1E}
+.sb-badge{font-size:10px;font-weight:600;color:#6B7280;background:#F3F4F6;padding:2px 8px;border-radius:20px}
+.sb-badge.up{color:#EF4444;background:#EF444415}
+.sb-badge.dn{color:#3B82F6;background:#3B82F615}
+.sb-track{background:#F3F4F6;border-radius:4px;height:6px;overflow:hidden;margin-bottom:8px}
+.sb-fill{height:100%;border-radius:4px}
+.st-pills{display:flex;flex-wrap:wrap;gap:4px}
+.st-pill{display:inline-flex;align-items:center;gap:4px;background:#fff;
+          border:1px solid #E5E7EB;border-radius:8px;padding:3px 9px}
+.st-name{font-size:11px;font-weight:500;color:#374151}
+.st-sep{font-size:10px;color:#D1D5DB}
+.st-amt{font-size:10px;color:#9CA3AF}
+.st-pct{font-size:10.5px;font-weight:700}
+.st-pct.up{color:#EF4444}.st-pct.dn{color:#3B82F6}.st-pct.neu{color:#9CA3AF}
+
+/* Scorecard */
+.sc-table{width:100%;border-collapse:collapse;font-size:11.5px}
+.sc-table thead th{background:#F9FAFB;color:#6B7280;font-size:10px;font-weight:600;
+                    padding:7px 10px;text-align:left;border-bottom:1px solid #E5E7EB}
+.sc-table tbody tr:hover{background:#FAFAFA}
+.sc-table td{padding:8px 10px;border-bottom:1px solid #F3F4F6;vertical-align:middle}
+.sc-rk{font-weight:700;color:#3B82F6;width:24px}
+.sc-sc{font-weight:600;white-space:nowrap}
+.sc-am{color:#374151}
+.sc-br{display:flex;align-items:center;gap:6px;min-width:110px}
+.sc-track{flex:1;background:#F3F4F6;border-radius:3px;height:5px;overflow:hidden}
+.sc-fill{height:100%;border-radius:3px}
+.sc-val{font-size:10px;color:#6B7280;width:22px;text-align:right}
+.sc-sh{color:#9CA3AF;font-size:10.5px}
+.sc-ch{font-size:10.5px;font-weight:600}
+.sc-ch.up{color:#EF4444}.sc-ch.dn{color:#3B82F6}.sc-ch.neu{color:#9CA3AF}
+
+/* 4 boxes */
+.box-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.bx{background:#fff;border:1px solid #E5E7EB;border-radius:12px;padding:14px 16px}
+.bx-hd{font-size:11px;font-weight:700;color:#374151;margin-bottom:10px;display:flex;align-items:center;gap:5px}
+.bx-row{display:grid;grid-template-columns:1fr auto auto;align-items:center;
+         gap:6px;padding:5px 0;border-bottom:1px solid #F9FAFB}
+.bx-row:last-child{border-bottom:none}
+.bx-nm{font-size:12px;font-weight:600;color:#1C1C1E;font-family:monospace}
+.bx-sec{font-size:9px;font-weight:600;color:#fff;padding:2px 6px;border-radius:4px;white-space:nowrap}
+.bx-r{display:flex;align-items:center;gap:5px}
+.bx-pct{font-size:11.5px;font-weight:700}
+.bx-pct.up{color:#EF4444}.bx-pct.dn{color:#3B82F6}.bx-pct.neu{color:#9CA3AF}
+.bx-vol{font-size:9.5px;color:#9CA3AF}
+
+/* Highs */
+.hl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.hl-sec{background:#F9FAFB;border-radius:10px;padding:12px}
+.hl-sec-hd{display:flex;justify-content:space-between;align-items:center;
+             margin-bottom:8px;padding-left:6px}
+.hl-sec-nm{font-size:11.5px;font-weight:700;color:#1C1C1E}
+.hl-sec-cnt{font-size:10px;color:#9CA3AF}
+.hl-chips{display:flex;flex-wrap:wrap;gap:4px}
+.hl-chip{display:inline-flex;align-items:center;gap:5px;background:#fff;
+          border:1px solid #E5E7EB;border-radius:8px;padding:3px 8px}
+.hl-nm{font-size:11px;font-weight:500;color:#374151;font-family:monospace}
+.hl-pct{font-size:10.5px;font-weight:700}
+.hl-pct.up{color:#EF4444}.hl-pct.dn{color:#3B82F6}
+
+/* Regime */
+.rg-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.rg-tag{font-size:11px;font-weight:600;padding:4px 12px;border-radius:20px}
+.rg-txt{font-size:12px;color:#374151;line-height:1.7;background:#F9FAFB;
+         border-radius:10px;padding:12px 14px}
+
+/* Strategy */
+.strat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.strat-card{background:#fff;border:1px solid #E5E7EB;border-radius:12px;padding:14px 16px}
+.strat-hd{display:flex;align-items:center;gap:6px;margin-bottom:10px;flex-wrap:wrap}
+.strat-lbl{font-size:12px;font-weight:700}
+.strat-period{font-size:10px;color:#9CA3AF;background:#F3F4F6;padding:2px 8px;border-radius:20px}
+.strat-stance{font-size:10.5px;color:#6B7280;font-weight:500}
+.strat-pts{padding-left:14px;display:flex;flex-direction:column;gap:5px}
+.strat-pts li{font-size:11.5px;color:#374151;line-height:1.5}
+.strat-chips{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px}
+.st-chip{font-size:10px;font-weight:600;color:#3B82F6;background:#3B82F615;
+          border:1px solid #3B82F630;padding:2px 8px;border-radius:20px}
+
+/* ETF strip */
+.etf-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 20px}
+.etf-row{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid #F9FAFB}
+.etf-nm{width:180px;font-size:11.5px;color:#374151;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.etf-bar-wrap{flex:1;height:5px;background:#F3F4F6;border-radius:3px;overflow:hidden}
+.etf-bar{height:100%;border-radius:3px}
+.etf-chg{width:52px;font-size:11.5px;font-weight:600;text-align:right}
+.etf-chg.up{color:#EF4444}.etf-chg.dn{color:#3B82F6}
+
+/* Cross */
+.cross-desc{font-size:12px;color:#374151;margin-bottom:12px;padding:10px 14px;
+             background:#3B82F610;border-radius:10px;border:1px solid #3B82F630}
+.cross-desc em{font-style:normal;font-weight:700;color:#3B82F6}
+
+/* 신고가 인라인 */
+.high-inline{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;
+             padding:12px 14px;background:#F9FAFB;border-radius:10px;
+             border:1px solid #E5E7EB}
+
+/* up/dn global - 한국식: 상승=빨강, 하락=파랑 */
+.up{color:#EF4444}.dn{color:#3B82F6}.neu{color:#9CA3AF}
+
+@media(max-width:700px){
+  .kpi-row{grid-template-columns:1fr 1fr}
+  .box-grid,.hl-grid,.strat-grid{grid-template-columns:1fr}
+  .etf-grid{grid-template-columns:1fr}
+  .etf-nm{width:130px}
+}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="hd-top">
+    <div>
+      <div class="hd-title">🇺🇸 US Market 월간 리포트</div>
+      <div class="hd-sub">2026년 6월 · 8거래일 집계</div>
+    </div>
+    <div><a href="../index.html" style="font-size:12px;color:#3B82F6">← 목록으로</a></div>
+  </div>
+
+  <div class="sec"><div class="sec-title">섹터 누적 자금흐름 — S&P 500</div><p style='color:#9CA3AF'>데이터 없음</p></div>
+  <div class="sec"><div class="sec-title">섹터 누적 자금흐름 — Nasdaq 200</div><p style='color:#9CA3AF'>데이터 없음</p></div>
+
+  <div class="sec">
+    <div class="sec-title">거래대금 누적 Top 종목</div>
+    <div class="box-grid">
+      <div class="bx"><div class="bx-hd">S&P 500</div><p style='color:#9CA3AF'>데이터 없음</p></div>
+      <div class="bx"><div class="bx-hd">Nasdaq 200</div><p style='color:#9CA3AF'>데이터 없음</p></div>
+    </div>
+  </div>
+
+  <div class="sec"><div class="sec-title">기간 내 52주 신고가 종목 — S&P 500</div><p style='color:#9CA3AF'>신고가 종목 없음</p></div>
+  <div class="sec"><div class="sec-title">기간 내 52주 신고가 종목 — Nasdaq 200</div><p style='color:#9CA3AF'>신고가 종목 없음</p></div>
+</div>
+</body>
+</html>
