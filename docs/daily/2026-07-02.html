@@ -1,0 +1,2364 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>2026-07-02 US Market Daily Report</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',sans-serif;
+     background:#fff;color:#1C1C1E;font-size:13px;line-height:1.5}
+.page{max-width:960px;margin:0 auto;padding:24px 20px 80px}
+
+/* Header */
+.hd-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px}
+.hd-title{font-size:22px;font-weight:700;letter-spacing:-.5px}
+.hd-sub{font-size:11px;color:#8E8E93;margin-top:3px}
+.mkt-tabs{display:flex;gap:6px;flex-wrap:wrap}
+.mkt-tab{padding:6px 18px;border-radius:20px;font-size:11px;font-weight:700;
+          border:1.5px solid #D1D5DB;color:#6B7280;cursor:pointer;transition:.15s;background:#fff}
+.mkt-tab.active{background:#1C1C1E;color:#fff;border-color:#1C1C1E}
+
+/* KPI */
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px}
+.kpi{background:#F9FAFB;border-radius:12px;padding:14px 16px}
+.kpi-lbl{font-size:10px;color:#8E8E93;font-weight:500;margin-bottom:5px}
+.kpi-val{font-size:22px;font-weight:700;letter-spacing:-.5px}
+.kpi-val.up,.kpi-sub.up{color:#EF4444}
+.kpi-val.dn,.kpi-sub.dn{color:#3B82F6}
+.kpi-val.blue{color:#3B82F6}
+.kpi-sub{font-size:10px;margin-top:3px}
+
+/* Section */
+.sec{margin-top:26px}
+.sec-title{font-size:13px;font-weight:700;color:#1C1C1E;margin-bottom:12px;
+            padding-left:10px;border-left:3px solid #3B82F6}
+
+/* Tab */
+.tab{display:none}.tab.active{display:block}
+
+/* Sector bar */
+.sb-block{margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid #F3F4F6}
+.sb-block:last-child{border-bottom:none;margin-bottom:0}
+.sb-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px}
+.sb-left{display:flex;align-items:center;gap:6px}
+.sb-ic{font-size:14px}
+.sb-nm{font-size:12.5px;font-weight:700;color:#1C1C1E}
+.sb-right{display:flex;align-items:center;gap:7px}
+.sb-amt{font-size:13px;font-weight:700;color:#1C1C1E}
+.sb-badge{font-size:10px;font-weight:600;color:#6B7280;background:#F3F4F6;padding:2px 8px;border-radius:20px}
+.sb-badge.up{color:#EF4444;background:#EF444415}
+.sb-badge.dn{color:#3B82F6;background:#3B82F615}
+.sb-track{background:#F3F4F6;border-radius:4px;height:6px;overflow:hidden;margin-bottom:8px}
+.sb-fill{height:100%;border-radius:4px}
+.st-pills{display:flex;flex-wrap:wrap;gap:4px}
+.st-pill{display:inline-flex;align-items:center;gap:4px;background:#fff;
+          border:1px solid #E5E7EB;border-radius:8px;padding:3px 9px}
+.st-name{font-size:11px;font-weight:500;color:#374151}
+.st-sep{font-size:10px;color:#D1D5DB}
+.st-amt{font-size:10px;color:#9CA3AF}
+.st-pct{font-size:10.5px;font-weight:700}
+.st-pct.up{color:#EF4444}.st-pct.dn{color:#3B82F6}.st-pct.neu{color:#9CA3AF}
+
+/* Scorecard */
+.sc-table{width:100%;border-collapse:collapse;font-size:11.5px}
+.sc-table thead th{background:#F9FAFB;color:#6B7280;font-size:10px;font-weight:600;
+                    padding:7px 10px;text-align:left;border-bottom:1px solid #E5E7EB}
+.sc-table tbody tr:hover{background:#FAFAFA}
+.sc-table td{padding:8px 10px;border-bottom:1px solid #F3F4F6;vertical-align:middle}
+.sc-rk{font-weight:700;color:#3B82F6;width:24px}
+.sc-sc{font-weight:600;white-space:nowrap}
+.sc-am{color:#374151}
+.sc-br{display:flex;align-items:center;gap:6px;min-width:110px}
+.sc-track{flex:1;background:#F3F4F6;border-radius:3px;height:5px;overflow:hidden}
+.sc-fill{height:100%;border-radius:3px}
+.sc-val{font-size:10px;color:#6B7280;width:22px;text-align:right}
+.sc-sh{color:#9CA3AF;font-size:10.5px}
+.sc-ch{font-size:10.5px;font-weight:600}
+.sc-ch.up{color:#EF4444}.sc-ch.dn{color:#3B82F6}.sc-ch.neu{color:#9CA3AF}
+
+/* 4 boxes */
+.box-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.bx{background:#fff;border:1px solid #E5E7EB;border-radius:12px;padding:14px 16px}
+.bx-hd{font-size:11px;font-weight:700;color:#374151;margin-bottom:10px;display:flex;align-items:center;gap:5px}
+.bx-row{display:grid;grid-template-columns:1fr auto auto;align-items:center;
+         gap:6px;padding:5px 0;border-bottom:1px solid #F9FAFB}
+.bx-row:last-child{border-bottom:none}
+.bx-nm{font-size:12px;font-weight:600;color:#1C1C1E;font-family:monospace}
+.bx-sec{font-size:9px;font-weight:600;color:#fff;padding:2px 6px;border-radius:4px;white-space:nowrap}
+.bx-r{display:flex;align-items:center;gap:5px}
+.bx-pct{font-size:11.5px;font-weight:700}
+.bx-pct.up{color:#EF4444}.bx-pct.dn{color:#3B82F6}.bx-pct.neu{color:#9CA3AF}
+.bx-vol{font-size:9.5px;color:#9CA3AF}
+
+/* Highs */
+.hl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.hl-sec{background:#F9FAFB;border-radius:10px;padding:12px}
+.hl-sec-hd{display:flex;justify-content:space-between;align-items:center;
+             margin-bottom:8px;padding-left:6px}
+.hl-sec-nm{font-size:11.5px;font-weight:700;color:#1C1C1E}
+.hl-sec-cnt{font-size:10px;color:#9CA3AF}
+.hl-chips{display:flex;flex-wrap:wrap;gap:4px}
+.hl-chip{display:inline-flex;align-items:center;gap:5px;background:#fff;
+          border:1px solid #E5E7EB;border-radius:8px;padding:3px 8px}
+.hl-nm{font-size:11px;font-weight:500;color:#374151;font-family:monospace}
+.hl-pct{font-size:10.5px;font-weight:700}
+.hl-pct.up{color:#EF4444}.hl-pct.dn{color:#3B82F6}
+
+/* Regime */
+.rg-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.rg-tag{font-size:11px;font-weight:600;padding:4px 12px;border-radius:20px}
+.rg-txt{font-size:12px;color:#374151;line-height:1.7;background:#F9FAFB;
+         border-radius:10px;padding:12px 14px}
+
+/* Strategy */
+.strat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.strat-card{background:#fff;border:1px solid #E5E7EB;border-radius:12px;padding:14px 16px}
+.strat-hd{display:flex;align-items:center;gap:6px;margin-bottom:10px;flex-wrap:wrap}
+.strat-lbl{font-size:12px;font-weight:700}
+.strat-period{font-size:10px;color:#9CA3AF;background:#F3F4F6;padding:2px 8px;border-radius:20px}
+.strat-stance{font-size:10.5px;color:#6B7280;font-weight:500}
+.strat-pts{padding-left:14px;display:flex;flex-direction:column;gap:5px}
+.strat-pts li{font-size:11.5px;color:#374151;line-height:1.5}
+.strat-chips{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px}
+.st-chip{font-size:10px;font-weight:600;color:#3B82F6;background:#3B82F615;
+          border:1px solid #3B82F630;padding:2px 8px;border-radius:20px}
+
+/* ETF strip */
+.etf-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 20px}
+.etf-row{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid #F9FAFB}
+.etf-nm{width:180px;font-size:11.5px;color:#374151;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.etf-bar-wrap{flex:1;height:5px;background:#F3F4F6;border-radius:3px;overflow:hidden}
+.etf-bar{height:100%;border-radius:3px}
+.etf-chg{width:52px;font-size:11.5px;font-weight:600;text-align:right}
+.etf-chg.up{color:#EF4444}.etf-chg.dn{color:#3B82F6}
+
+/* Cross */
+.cross-desc{font-size:12px;color:#374151;margin-bottom:12px;padding:10px 14px;
+             background:#3B82F610;border-radius:10px;border:1px solid #3B82F630}
+.cross-desc em{font-style:normal;font-weight:700;color:#3B82F6}
+
+/* 신고가 인라인 */
+.high-inline{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;
+             padding:12px 14px;background:#F9FAFB;border-radius:10px;
+             border:1px solid #E5E7EB}
+
+/* up/dn global - 한국식: 상승=빨강, 하락=파랑 */
+.up{color:#EF4444}.dn{color:#3B82F6}.neu{color:#9CA3AF}
+
+@media(max-width:700px){
+  .kpi-row{grid-template-columns:1fr 1fr}
+  .box-grid,.hl-grid,.strat-grid{grid-template-columns:1fr}
+  .etf-grid{grid-template-columns:1fr}
+  .etf-nm{width:130px}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="hd-top">
+    <div>
+      <div class="hd-title">🇺🇸 US Market Daily Report</div>
+      <div class="hd-sub">2026-07-02 · EST Close 기준</div>
+    </div>
+    <div class="mkt-tabs">
+      <button class="mkt-tab active" onclick="sw('sp500',this)">S&amp;P 500</button>
+      <button class="mkt-tab" onclick="sw('nasdaq100',this)">Nasdaq 200</button>
+      <button class="mkt-tab" onclick="sw('cross',this)">⚡ 크로스</button>
+    </div>
+  </div>
+
+  <!-- 지수 카드 -->
+  <div class="kpi-row">
+    <div class="kpi" style="background:#FFF5F5"><div class="kpi-lbl">S&P 500 (SPY)</div><div class="kpi-val" style="color:#3B82F6">7,483.23</div><div class="kpi-sub" style="color:#3B82F6">-0.22%</div></div><div class="kpi" style="background:#F5F8FF"><div class="kpi-lbl">Nasdaq 200 (QQQ)</div><div class="kpi-val" style="color:#3B82F6">29,809.13</div><div class="kpi-sub" style="color:#3B82F6">-1.54%</div></div><div class="kpi" style="background:#FFFDF5"><div class="kpi-lbl">Dow Jones (DIA)</div><div class="kpi-val" style="color:#3B82F6">52,305.24</div><div class="kpi-sub" style="color:#3B82F6">-0.03%</div></div><div class="kpi" style="background:#F5FFF8"><div class="kpi-lbl">Russell 2000 (IWM)</div><div class="kpi-val" style="color:#3B82F6">3,012.59</div><div class="kpi-sub" style="color:#3B82F6">-0.39%</div></div><div class="kpi" style="background:#F8F5FF"><div class="kpi-lbl">VIX 공포지수</div><div class="kpi-val" style="color:#EF4444">16.87</div><div class="kpi-sub" style="color:#EF4444">+1.69%</div></div>
+  </div>
+
+  <!-- 섹터 ETF -->
+  <div class="sec">
+    <div class="sec-title">섹터 ETF 등락</div>
+    <div class="etf-grid">
+      
+        <div class="etf-row">
+          <div class="etf-nm">Communication Services</div>
+          <div class="etf-bar-wrap"><div class="etf-bar" style="width:94%;background:#EF4444"></div></div>
+          <div class="etf-chg up">+2.44%</div>
+        </div>
+        <div class="etf-row">
+          <div class="etf-nm">Financials</div>
+          <div class="etf-bar-wrap"><div class="etf-bar" style="width:84%;background:#EF4444"></div></div>
+          <div class="etf-chg up">+2.18%</div>
+        </div>
+        <div class="etf-row">
+          <div class="etf-nm">Consumer Discretionary</div>
+          <div class="etf-bar-wrap"><div class="etf-bar" style="width:26%;background:#EF4444"></div></div>
+          <div class="etf-chg up">+0.69%</div>
+        </div>
+        <div class="etf-row">
+          <div class="etf-nm">Healthcare</div>
+          <div class="etf-bar-wrap"><div class="etf-bar" style="width:21%;background:#EF4444"></div></div>
+          <div class="etf-chg up">+0.55%</div>
+        </div>
+        <div class="etf-row">
+          <div class="etf-nm">Materials</div>
+          <div class="etf-bar-wrap"><div class="etf-bar" style="width:14%;background:#EF4444"></div></div>
+          <div class="etf-chg up">+0.37%</div>
+        </div>
+        <div class="etf-row">
+          <div class="etf-nm">Real Estate</div>
+          <div class="etf-bar-wrap"><div class="etf-bar" style="width:13%;background:#EF4444"></div></div>
+          <div class="etf-chg up">+0.34%</div>
+        </div>
+        <div class="etf-row">
+          <div class="etf-nm">Consumer Staples</div>
+          <div class="etf-bar-wrap"><div class="etf-bar" style="width:10%;background:#EF4444"></div></div>
+          <div class="etf-chg up">+0.28%</div>
+        </div>
+        <div class="etf-row">
+          <div class="etf-nm">Energy</div>
+          <div class="etf-bar-wrap"><div class="etf-bar" style="width:21%;background:#3B82F6"></div></div>
+          <div class="etf-chg dn">-0.56%</div>
+        </div>
+        <div class="etf-row">
+          <div class="etf-nm">Industrials</div>
+          <div class="etf-bar-wrap"><div class="etf-bar" style="width:39%;background:#3B82F6"></div></div>
+          <div class="etf-chg dn">-1.01%</div>
+        </div>
+        <div class="etf-row">
+          <div class="etf-nm">Utilities</div>
+          <div class="etf-bar-wrap"><div class="etf-bar" style="width:49%;background:#3B82F6"></div></div>
+          <div class="etf-chg dn">-1.26%</div>
+        </div>
+        <div class="etf-row">
+          <div class="etf-nm">Technology</div>
+          <div class="etf-bar-wrap"><div class="etf-bar" style="width:100%;background:#3B82F6"></div></div>
+          <div class="etf-chg dn">-2.57%</div>
+        </div>
+    </div>
+  </div>
+
+  
+        <div class="tab active" id="tab-sp500">
+          <div class="kpi-row" id="kpi-row-S&P 500"><div class="kpi"><div class="kpi-lbl">S&P 500 총 거래대금</div><div class="kpi-val">$550.7B</div><div class="kpi-sub">482개 종목</div></div><div class="kpi"><div class="kpi-lbl">최고 상승</div><div class="kpi-val" style="color:#EF4444">+8.81%</div><div class="kpi-sub">META</div></div><div class="kpi"><div class="kpi-lbl">최대 하락</div><div class="kpi-val" style="color:#3B82F6">-13.62%</div><div class="kpi-sub">GLW</div></div><div class="kpi"><div class="kpi-lbl">52주 신고가</div><div class="kpi-val" style="color:#3B82F6">15개</div><div class="kpi-sub">모멘텀 9개</div></div></div><div class="high-inline"><span class="hl-chip"><span class="hl-nm">UNH</span><span class="bx-sec" style="background:#EF4444;margin:0 4px">Healthca</span><span class="hl-pct up">+2.62%</span></span><span class="hl-chip"><span class="hl-nm">CB</span><span class="bx-sec" style="background:#9CA3AF;margin:0 4px">Financia</span><span class="hl-pct up">+3.23%</span></span><span class="hl-chip"><span class="hl-nm">APD</span><span class="bx-sec" style="background:#9CA3AF;margin:0 4px">Basic Ma</span><span class="hl-pct up">+5.16%</span></span><span class="hl-chip"><span class="hl-nm">UNP</span><span class="bx-sec" style="background:#6366F1;margin:0 4px">Industri</span><span class="hl-pct up">+2.11%</span></span><span class="hl-chip"><span class="hl-nm">USB</span><span class="bx-sec" style="background:#9CA3AF;margin:0 4px">Financia</span><span class="hl-pct up">+2.58%</span></span><span class="hl-chip"><span class="hl-nm">PNC</span><span class="bx-sec" style="background:#9CA3AF;margin:0 4px">Financia</span><span class="hl-pct up">+2.19%</span></span><span class="hl-chip"><span class="hl-nm">CFG</span><span class="bx-sec" style="background:#9CA3AF;margin:0 4px">Financia</span><span class="hl-pct up">+2.50%</span></span><span class="hl-chip"><span class="hl-nm">ALL</span><span class="bx-sec" style="background:#9CA3AF;margin:0 4px">Financia</span><span class="hl-pct up">+2.18%</span></span><span class="hl-chip"><span class="hl-nm">CNC</span><span class="bx-sec" style="background:#EF4444;margin:0 4px">Healthca</span><span class="hl-pct up">+6.48%</span></span><span class="hl-chip"><span class="hl-nm">EA</span><span class="bx-sec" style="background:#0EA5E9;margin:0 4px">Communic</span><span class="hl-pct up">+0.20%</span></span><span class="hl-chip"><span class="hl-nm">WST</span><span class="bx-sec" style="background:#EF4444;margin:0 4px">Healthca</span><span class="hl-pct up">+1.67%</span></span><span class="hl-chip"><span class="hl-nm">MTB</span><span class="bx-sec" style="background:#9CA3AF;margin:0 4px">Financia</span><span class="hl-pct up">+1.66%</span></span><span class="hl-chip"><span class="hl-nm">RF</span><span class="bx-sec" style="background:#9CA3AF;margin:0 4px">Financia</span><span class="hl-pct up">+1.99%</span></span><span class="hl-chip"><span class="hl-nm">DGX</span><span class="bx-sec" style="background:#EF4444;margin:0 4px">Healthca</span><span class="hl-pct up">+1.92%</span></span><span class="hl-chip"><span class="hl-nm">CINF</span><span class="bx-sec" style="background:#9CA3AF;margin:0 4px">Financia</span><span class="hl-pct up">+1.12%</span></span></div>
+
+          <div class="sec">
+            <div class="sec-title">섹터 자금흐름 — S&P 500</div>
+            
+        <div class="sb-block">
+          <div class="sb-hd">
+            <div class="sb-left">
+              <span class="sb-ic">💻</span>
+              <span class="sb-nm">Technology</span>
+            </div>
+            <div class="sb-right">
+              <span class="sb-amt">$251.3B</span>
+              <span class="sb-badge dn">-0.39%</span>
+              <span class="sb-badge">75종목</span>
+            </div>
+          </div>
+          <div class="sb-track"><div class="sb-fill" style="width:100%;background:#3B82F6"></div></div>
+          <div class="st-pills"><span class="st-pill">
+              <span class="st-name">MU</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$52.4B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-10.57%</span>
+            </span><span class="st-pill">
+              <span class="st-name">NVDA</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$28.8B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-1.25%</span>
+            </span><span class="st-pill">
+              <span class="st-name">MSFT</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$18.4B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+3.02%</span>
+            </span><span class="st-pill">
+              <span class="st-name">AMD</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$15.2B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-6.89%</span>
+            </span><span class="st-pill">
+              <span class="st-name">AAPL</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$14.8B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+1.73%</span>
+            </span><span class="st-pill">
+              <span class="st-name">INTC</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$14.3B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-9.03%</span>
+            </span><span class="st-pill">
+              <span class="st-name">AMAT</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$10.4B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-9.97%</span>
+            </span><span class="st-pill">
+              <span class="st-name">AVGO</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$8.7B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-2.23%</span>
+            </span><span class="st-pill">
+              <span class="st-name">LRCX</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$7.3B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-9.71%</span>
+            </span><span class="st-pill">
+              <span class="st-name">ORCL</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$6.5B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-2.76%</span>
+            </span></div>
+        </div>
+        <div class="sb-block">
+          <div class="sb-hd">
+            <div class="sb-left">
+              <span class="sb-ic">📡</span>
+              <span class="sb-nm">Communication Services</span>
+            </div>
+            <div class="sb-right">
+              <span class="sb-amt">$60.0B</span>
+              <span class="sb-badge up">+1.69%</span>
+              <span class="sb-badge">20종목</span>
+            </div>
+          </div>
+          <div class="sb-track"><div class="sb-fill" style="width:23%;background:#0EA5E9"></div></div>
+          <div class="st-pills"><span class="st-pill">
+              <span class="st-name">META</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$27.9B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+8.81%</span>
+            </span><span class="st-pill">
+              <span class="st-name">GOOGL</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$9.6B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+1.07%</span>
+            </span><span class="st-pill">
+              <span class="st-name">GOOG</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$7.0B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+1.29%</span>
+            </span><span class="st-pill">
+              <span class="st-name">NFLX</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$3.2B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+3.91%</span>
+            </span><span class="st-pill">
+              <span class="st-name">T</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$2.8B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-1.06%</span>
+            </span><span class="st-pill">
+              <span class="st-name">VZ</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$2.4B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-0.83%</span>
+            </span><span class="st-pill">
+              <span class="st-name">CMCSA</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$1.2B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-2.02%</span>
+            </span><span class="st-pill">
+              <span class="st-name">DIS</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$1.1B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-0.56%</span>
+            </span><span class="st-pill">
+              <span class="st-name">TMUS</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$1.0B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+3.18%</span>
+            </span><span class="st-pill">
+              <span class="st-name">LYV</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$580M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+0.48%</span>
+            </span></div>
+        </div>
+        <div class="sb-block">
+          <div class="sb-hd">
+            <div class="sb-left">
+              <span class="sb-ic">📊</span>
+              <span class="sb-nm">Consumer Cyclical</span>
+            </div>
+            <div class="sb-right">
+              <span class="sb-amt">$53.3B</span>
+              <span class="sb-badge dn">-0.17%</span>
+              <span class="sb-badge">56종목</span>
+            </div>
+          </div>
+          <div class="sb-track"><div class="sb-fill" style="width:21%;background:#9CA3AF"></div></div>
+          <div class="st-pills"><span class="st-pill">
+              <span class="st-name">TSLA</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$17.0B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+1.12%</span>
+            </span><span class="st-pill">
+              <span class="st-name">AMZN</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$12.9B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+1.41%</span>
+            </span><span class="st-pill">
+              <span class="st-name">NKE</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$3.5B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+4.90%</span>
+            </span><span class="st-pill">
+              <span class="st-name">AZO</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$1.4B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+0.69%</span>
+            </span><span class="st-pill">
+              <span class="st-name">HD</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$1.4B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-0.52%</span>
+            </span><span class="st-pill">
+              <span class="st-name">MCD</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$1.1B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-0.33%</span>
+            </span><span class="st-pill">
+              <span class="st-name">ORLY</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$806M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+0.65%</span>
+            </span><span class="st-pill">
+              <span class="st-name">SBUX</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$772M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+1.17%</span>
+            </span><span class="st-pill">
+              <span class="st-name">TJX</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$764M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-0.10%</span>
+            </span><span class="st-pill">
+              <span class="st-name">HLT</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$695M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+0.50%</span>
+            </span></div>
+        </div>
+        <div class="sb-block">
+          <div class="sb-hd">
+            <div class="sb-left">
+              <span class="sb-ic">📊</span>
+              <span class="sb-nm">Financial Services</span>
+            </div>
+            <div class="sb-right">
+              <span class="sb-amt">$47.9B</span>
+              <span class="sb-badge up">+2.35%</span>
+              <span class="sb-badge">63종목</span>
+            </div>
+          </div>
+          <div class="sb-track"><div class="sb-fill" style="width:19%;background:#9CA3AF"></div></div>
+          <div class="st-pills"><span class="st-pill">
+              <span class="st-name">JPM</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$5.1B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+2.06%</span>
+            </span><span class="st-pill">
+              <span class="st-name">V</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$4.6B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+2.33%</span>
+            </span><span class="st-pill">
+              <span class="st-name">MA</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$2.3B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+1.72%</span>
+            </span><span class="st-pill">
+              <span class="st-name">BK</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$2.2B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-1.29%</span>
+            </span><span class="st-pill">
+              <span class="st-name">BAC</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$2.1B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+2.42%</span>
+            </span><span class="st-pill">
+              <span class="st-name">BRK-B</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$2.0B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-0.13%</span>
+            </span><span class="st-pill">
+              <span class="st-name">C</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$1.9B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+0.12%</span>
+            </span><span class="st-pill">
+              <span class="st-name">GS</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$1.8B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+0.81%</span>
+            </span><span class="st-pill">
+              <span class="st-name">SPGI</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$1.6B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+7.70%</span>
+            </span><span class="st-pill">
+              <span class="st-name">WFC</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$1.3B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+3.99%</span>
+            </span></div>
+        </div>
+        <div class="sb-block">
+          <div class="sb-hd">
+            <div class="sb-left">
+              <span class="sb-ic">🏭</span>
+              <span class="sb-nm">Industrials</span>
+            </div>
+            <div class="sb-right">
+              <span class="sb-amt">$37.1B</span>
+              <span class="sb-badge dn">-0.45%</span>
+              <span class="sb-badge">70종목</span>
+            </div>
+          </div>
+          <div class="sb-track"><div class="sb-fill" style="width:14%;background:#6366F1"></div></div>
+          <div class="st-pills"><span class="st-pill">
+              <span class="st-name">CAT</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$3.9B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-6.90%</span>
+            </span><span class="st-pill">
+              <span class="st-name">AAL</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$3.0B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+0.44%</span>
+            </span><span class="st-pill">
+              <span class="st-name">GE</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$1.5B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+0.32%</span>
+            </span><span class="st-pill">
+              <span class="st-name">HON</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$1.4B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-0.96%</span>
+            </span><span class="st-pill">
+              <span class="st-name">JCI</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$1.3B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-0.90%</span>
+            </span><span class="st-pill">
+              <span class="st-name">AXON</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$1.0B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+5.95%</span>
+            </span><span class="st-pill">
+              <span class="st-name">DE</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$1.0B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-1.06%</span>
+            </span><span class="st-pill">
+              <span class="st-name">ETN</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$981M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-3.24%</span>
+            </span><span class="st-pill">
+              <span class="st-name">BA</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$919M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+0.97%</span>
+            </span><span class="st-pill">
+              <span class="st-name">PWR</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$858M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-3.96%</span>
+            </span></div>
+        </div>
+        <div class="sb-block">
+          <div class="sb-hd">
+            <div class="sb-left">
+              <span class="sb-ic">#🧬</span>
+              <span class="sb-nm">Healthcare</span>
+            </div>
+            <div class="sb-right">
+              <span class="sb-amt">$35.5B</span>
+              <span class="sb-badge up">+1.46%</span>
+              <span class="sb-badge">60종목</span>
+            </div>
+          </div>
+          <div class="sb-track"><div class="sb-fill" style="width:14%;background:#EF4444"></div></div>
+          <div class="st-pills"><span class="st-pill">
+              <span class="st-name">LLY</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$3.2B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-0.64%</span>
+            </span><span class="st-pill">
+              <span class="st-name">UNH</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$2.1B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+2.62%</span>
+            </span><span class="st-pill">
+              <span class="st-name">ABBV</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$1.8B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-0.23%</span>
+            </span><span class="st-pill">
+              <span class="st-name">JNJ</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$1.7B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct neu">0.00%</span>
+            </span><span class="st-pill">
+              <span class="st-name">ABT</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$1.3B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+1.59%</span>
+            </span><span class="st-pill">
+              <span class="st-name">PFE</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$1.2B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-0.83%</span>
+            </span><span class="st-pill">
+              <span class="st-name">TMO</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$1.1B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+2.39%</span>
+            </span><span class="st-pill">
+              <span class="st-name">BSX</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$1.1B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+0.89%</span>
+            </span><span class="st-pill">
+              <span class="st-name">MCK</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$922M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+1.65%</span>
+            </span><span class="st-pill">
+              <span class="st-name">SYK</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$914M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-0.46%</span>
+            </span></div>
+        </div>
+        <div class="sb-block">
+          <div class="sb-hd">
+            <div class="sb-left">
+              <span class="sb-ic">📊</span>
+              <span class="sb-nm">Consumer Defensive</span>
+            </div>
+            <div class="sb-right">
+              <span class="sb-amt">$23.8B</span>
+              <span class="sb-badge up">+1.20%</span>
+              <span class="sb-badge">37종목</span>
+            </div>
+          </div>
+          <div class="sb-track"><div class="sb-fill" style="width:9%;background:#9CA3AF"></div></div>
+          <div class="st-pills"><span class="st-pill">
+              <span class="st-name">WMT</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$4.4B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-3.92%</span>
+            </span><span class="st-pill">
+              <span class="st-name">COST</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$2.7B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-1.15%</span>
+            </span><span class="st-pill">
+              <span class="st-name">KO</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$1.8B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+0.02%</span>
+            </span><span class="st-pill">
+              <span class="st-name">PG</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$1.4B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+0.54%</span>
+            </span><span class="st-pill">
+              <span class="st-name">PEP</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$1.3B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+4.25%</span>
+            </span><span class="st-pill">
+              <span class="st-name">PM</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$1.0B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-1.78%</span>
+            </span><span class="st-pill">
+              <span class="st-name">GIS</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$1.0B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+8.53%</span>
+            </span><span class="st-pill">
+              <span class="st-name">MDLZ</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$721M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+2.61%</span>
+            </span><span class="st-pill">
+              <span class="st-name">DLTR</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$653M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+0.17%</span>
+            </span><span class="st-pill">
+              <span class="st-name">TGT</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$642M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-0.25%</span>
+            </span></div>
+        </div>
+        <div class="sb-block">
+          <div class="sb-hd">
+            <div class="sb-left">
+              <span class="sb-ic">💡</span>
+              <span class="sb-nm">Utilities</span>
+            </div>
+            <div class="sb-right">
+              <span class="sb-amt">$11.8B</span>
+              <span class="sb-badge dn">-1.16%</span>
+              <span class="sb-badge">29종목</span>
+            </div>
+          </div>
+          <div class="sb-track"><div class="sb-fill" style="width:4%;background:#8B5CF6"></div></div>
+          <div class="st-pills"><span class="st-pill">
+              <span class="st-name">CEG</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$2.1B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-4.78%</span>
+            </span><span class="st-pill">
+              <span class="st-name">NEE</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$838M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-1.60%</span>
+            </span><span class="st-pill">
+              <span class="st-name">VST</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$779M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-3.45%</span>
+            </span><span class="st-pill">
+              <span class="st-name">AEP</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$672M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-1.29%</span>
+            </span><span class="st-pill">
+              <span class="st-name">DUK</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$535M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-0.64%</span>
+            </span><span class="st-pill">
+              <span class="st-name">NRG</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$482M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-3.60%</span>
+            </span><span class="st-pill">
+              <span class="st-name">XEL</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$466M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-0.75%</span>
+            </span><span class="st-pill">
+              <span class="st-name">EXC</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$465M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-0.77%</span>
+            </span><span class="st-pill">
+              <span class="st-name">SO</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$445M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-0.62%</span>
+            </span><span class="st-pill">
+              <span class="st-name">ETR</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$425M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-1.74%</span>
+            </span></div>
+        </div>
+        <div class="sb-block">
+          <div class="sb-hd">
+            <div class="sb-left">
+              <span class="sb-ic">⚡</span>
+              <span class="sb-nm">Energy</span>
+            </div>
+            <div class="sb-right">
+              <span class="sb-amt">$10.8B</span>
+              <span class="sb-badge dn">-0.92%</span>
+              <span class="sb-badge">21종목</span>
+            </div>
+          </div>
+          <div class="sb-track"><div class="sb-fill" style="width:4%;background:#F97316"></div></div>
+          <div class="st-pills"><span class="st-pill">
+              <span class="st-name">XOM</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$1.7B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-0.32%</span>
+            </span><span class="st-pill">
+              <span class="st-name">CVX</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$1.5B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-0.04%</span>
+            </span><span class="st-pill">
+              <span class="st-name">SLB</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$724M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-3.01%</span>
+            </span><span class="st-pill">
+              <span class="st-name">VLO</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$644M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+3.46%</span>
+            </span><span class="st-pill">
+              <span class="st-name">WMB</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$623M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-2.11%</span>
+            </span><span class="st-pill">
+              <span class="st-name">COP</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$593M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-0.71%</span>
+            </span><span class="st-pill">
+              <span class="st-name">BKR</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$511M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-3.03%</span>
+            </span><span class="st-pill">
+              <span class="st-name">MPC</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$496M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+3.60%</span>
+            </span><span class="st-pill">
+              <span class="st-name">DVN</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$474M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-2.59%</span>
+            </span><span class="st-pill">
+              <span class="st-name">FANG</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$465M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-2.17%</span>
+            </span></div>
+        </div>
+        <div class="sb-block">
+          <div class="sb-hd">
+            <div class="sb-left">
+              <span class="sb-ic">🏢</span>
+              <span class="sb-nm">Real Estate</span>
+            </div>
+            <div class="sb-right">
+              <span class="sb-amt">$9.7B</span>
+              <span class="sb-badge up">+0.32%</span>
+              <span class="sb-badge">29종목</span>
+            </div>
+          </div>
+          <div class="sb-track"><div class="sb-fill" style="width:3%;background:#14B8A6"></div></div>
+          <div class="st-pills"><span class="st-pill">
+              <span class="st-name">DLR</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$1.8B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-1.82%</span>
+            </span><span class="st-pill">
+              <span class="st-name">EQIX</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$969M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-2.76%</span>
+            </span><span class="st-pill">
+              <span class="st-name">AMT</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$768M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+1.53%</span>
+            </span><span class="st-pill">
+              <span class="st-name">VTR</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$668M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+0.96%</span>
+            </span><span class="st-pill">
+              <span class="st-name">WELL</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$630M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+1.42%</span>
+            </span><span class="st-pill">
+              <span class="st-name">SPG</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$569M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-0.29%</span>
+            </span><span class="st-pill">
+              <span class="st-name">HST</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$407M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-1.52%</span>
+            </span><span class="st-pill">
+              <span class="st-name">O</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$353M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-0.23%</span>
+            </span><span class="st-pill">
+              <span class="st-name">CCI</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$348M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+1.06%</span>
+            </span><span class="st-pill">
+              <span class="st-name">IRM</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$269M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-3.49%</span>
+            </span></div>
+        </div>
+          </div>
+
+          <div class="sec">
+            <div class="sec-title">섹터 강도 스코어카드 — S&P 500</div>
+            
+    <table class="sc-table">
+      <thead><tr><th>#</th><th>섹터</th><th>거래대금</th><th>강도</th><th>평균등락</th><th>종목수</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="sc-rk">1</td>
+          <td class="sc-sc">💻 Technology</td>
+          <td class="sc-am">$251.3B</td>
+          <td><div class="sc-br">
+            <div class="sc-track"><div class="sc-fill" style="width:100%;background:#3B82F6"></div></div>
+            <span class="sc-val">100</span>
+          </div></td>
+          <td class="sc-ch dn">-0.39%</td>
+          <td class="sc-sh">75</td>
+        </tr>
+        <tr>
+          <td class="sc-rk">2</td>
+          <td class="sc-sc">📡 Communication Services</td>
+          <td class="sc-am">$60.0B</td>
+          <td><div class="sc-br">
+            <div class="sc-track"><div class="sc-fill" style="width:23%;background:#0EA5E9"></div></div>
+            <span class="sc-val">23</span>
+          </div></td>
+          <td class="sc-ch up">+1.69%</td>
+          <td class="sc-sh">20</td>
+        </tr>
+        <tr>
+          <td class="sc-rk">3</td>
+          <td class="sc-sc">📊 Consumer Cyclical</td>
+          <td class="sc-am">$53.3B</td>
+          <td><div class="sc-br">
+            <div class="sc-track"><div class="sc-fill" style="width:21%;background:#9CA3AF"></div></div>
+            <span class="sc-val">21</span>
+          </div></td>
+          <td class="sc-ch dn">-0.17%</td>
+          <td class="sc-sh">56</td>
+        </tr>
+        <tr>
+          <td class="sc-rk">4</td>
+          <td class="sc-sc">📊 Financial Services</td>
+          <td class="sc-am">$47.9B</td>
+          <td><div class="sc-br">
+            <div class="sc-track"><div class="sc-fill" style="width:19%;background:#9CA3AF"></div></div>
+            <span class="sc-val">19</span>
+          </div></td>
+          <td class="sc-ch up">+2.35%</td>
+          <td class="sc-sh">63</td>
+        </tr>
+        <tr>
+          <td class="sc-rk">5</td>
+          <td class="sc-sc">🏭 Industrials</td>
+          <td class="sc-am">$37.1B</td>
+          <td><div class="sc-br">
+            <div class="sc-track"><div class="sc-fill" style="width:14%;background:#6366F1"></div></div>
+            <span class="sc-val">14</span>
+          </div></td>
+          <td class="sc-ch dn">-0.45%</td>
+          <td class="sc-sh">70</td>
+        </tr>
+        <tr>
+          <td class="sc-rk">6</td>
+          <td class="sc-sc">#🧬 Healthcare</td>
+          <td class="sc-am">$35.5B</td>
+          <td><div class="sc-br">
+            <div class="sc-track"><div class="sc-fill" style="width:14%;background:#EF4444"></div></div>
+            <span class="sc-val">14</span>
+          </div></td>
+          <td class="sc-ch up">+1.46%</td>
+          <td class="sc-sh">60</td>
+        </tr>
+        <tr>
+          <td class="sc-rk">7</td>
+          <td class="sc-sc">📊 Consumer Defensive</td>
+          <td class="sc-am">$23.8B</td>
+          <td><div class="sc-br">
+            <div class="sc-track"><div class="sc-fill" style="width:9%;background:#9CA3AF"></div></div>
+            <span class="sc-val">9</span>
+          </div></td>
+          <td class="sc-ch up">+1.20%</td>
+          <td class="sc-sh">37</td>
+        </tr>
+        <tr>
+          <td class="sc-rk">8</td>
+          <td class="sc-sc">💡 Utilities</td>
+          <td class="sc-am">$11.8B</td>
+          <td><div class="sc-br">
+            <div class="sc-track"><div class="sc-fill" style="width:4%;background:#8B5CF6"></div></div>
+            <span class="sc-val">4</span>
+          </div></td>
+          <td class="sc-ch dn">-1.16%</td>
+          <td class="sc-sh">29</td>
+        </tr>
+        <tr>
+          <td class="sc-rk">9</td>
+          <td class="sc-sc">⚡ Energy</td>
+          <td class="sc-am">$10.8B</td>
+          <td><div class="sc-br">
+            <div class="sc-track"><div class="sc-fill" style="width:4%;background:#F97316"></div></div>
+            <span class="sc-val">4</span>
+          </div></td>
+          <td class="sc-ch dn">-0.92%</td>
+          <td class="sc-sh">21</td>
+        </tr>
+        <tr>
+          <td class="sc-rk">10</td>
+          <td class="sc-sc">🏢 Real Estate</td>
+          <td class="sc-am">$9.7B</td>
+          <td><div class="sc-br">
+            <div class="sc-track"><div class="sc-fill" style="width:3%;background:#14B8A6"></div></div>
+            <span class="sc-val">3</span>
+          </div></td>
+          <td class="sc-ch up">+0.32%</td>
+          <td class="sc-sh">29</td>
+        </tr></tbody>
+    </table>
+          </div>
+
+          <div class="sec">
+            <div class="sec-title">주요 종목 현황 — S&P 500</div>
+            
+    <div class="box-grid">
+      <div class="bx">
+        <div class="bx-hd">⚡ 모멘텀 (신고가+거래대금)</div>
+        
+            <div class="bx-row">
+              <span class="bx-nm">UNH</span>
+              <span class="bx-sec" style="background:#EF4444">Healthcare</span>
+              <div class="bx-r">
+                <span class="bx-pct up">+2.62%</span>
+                
+              </div>
+            </div>
+            <div class="bx-row">
+              <span class="bx-nm">CB</span>
+              <span class="bx-sec" style="background:#9CA3AF">Financial Se</span>
+              <div class="bx-r">
+                <span class="bx-pct up">+3.23%</span>
+                
+              </div>
+            </div>
+            <div class="bx-row">
+              <span class="bx-nm">APD</span>
+              <span class="bx-sec" style="background:#9CA3AF">Basic Materi</span>
+              <div class="bx-r">
+                <span class="bx-pct up">+5.16%</span>
+                
+              </div>
+            </div>
+            <div class="bx-row">
+              <span class="bx-nm">UNP</span>
+              <span class="bx-sec" style="background:#6366F1">Industrials</span>
+              <div class="bx-r">
+                <span class="bx-pct up">+2.11%</span>
+                
+              </div>
+            </div>
+            <div class="bx-row">
+              <span class="bx-nm">USB</span>
+              <span class="bx-sec" style="background:#9CA3AF">Financial Se</span>
+              <div class="bx-r">
+                <span class="bx-pct up">+2.58%</span>
+                
+              </div>
+            </div>
+      </div>
+      <div class="bx">
+        <div class="bx-hd">🚀 상승률 Top</div>
+        
+            <div class="bx-row">
+              <span class="bx-nm">META</span>
+              <span class="bx-sec" style="background:#0EA5E9">Communicatio</span>
+              <div class="bx-r">
+                <span class="bx-pct up">+8.81%</span>
+                
+              </div>
+            </div>
+            <div class="bx-row">
+              <span class="bx-nm">GIS</span>
+              <span class="bx-sec" style="background:#9CA3AF">Consumer Def</span>
+              <div class="bx-r">
+                <span class="bx-pct up">+8.53%</span>
+                
+              </div>
+            </div>
+            <div class="bx-row">
+              <span class="bx-nm">SPGI</span>
+              <span class="bx-sec" style="background:#9CA3AF">Financial Se</span>
+              <div class="bx-r">
+                <span class="bx-pct up">+7.70%</span>
+                
+              </div>
+            </div>
+            <div class="bx-row">
+              <span class="bx-nm">ELV</span>
+              <span class="bx-sec" style="background:#EF4444">Healthcare</span>
+              <div class="bx-r">
+                <span class="bx-pct up">+7.62%</span>
+                
+              </div>
+            </div>
+            <div class="bx-row">
+              <span class="bx-nm">ALGN</span>
+              <span class="bx-sec" style="background:#EF4444">Healthcare</span>
+              <div class="bx-r">
+                <span class="bx-pct up">+7.61%</span>
+                
+              </div>
+            </div>
+      </div>
+      <div class="bx">
+        <div class="bx-hd">📉 하락률 Top</div>
+        
+            <div class="bx-row">
+              <span class="bx-nm">GLW</span>
+              <span class="bx-sec" style="background:#3B82F6">Technology</span>
+              <div class="bx-r">
+                <span class="bx-pct dn">-13.62%</span>
+                
+              </div>
+            </div>
+            <div class="bx-row">
+              <span class="bx-nm">KLAC</span>
+              <span class="bx-sec" style="background:#3B82F6">Technology</span>
+              <div class="bx-r">
+                <span class="bx-pct dn">-11.77%</span>
+                
+              </div>
+            </div>
+            <div class="bx-row">
+              <span class="bx-nm">TER</span>
+              <span class="bx-sec" style="background:#3B82F6">Technology</span>
+              <div class="bx-r">
+                <span class="bx-pct dn">-11.68%</span>
+                
+              </div>
+            </div>
+            <div class="bx-row">
+              <span class="bx-nm">MU</span>
+              <span class="bx-sec" style="background:#3B82F6">Technology</span>
+              <div class="bx-r">
+                <span class="bx-pct dn">-10.57%</span>
+                
+              </div>
+            </div>
+            <div class="bx-row">
+              <span class="bx-nm">AMAT</span>
+              <span class="bx-sec" style="background:#3B82F6">Technology</span>
+              <div class="bx-r">
+                <span class="bx-pct dn">-9.97%</span>
+                
+              </div>
+            </div>
+      </div>
+      <div class="bx">
+        <div class="bx-hd">💰 거래대금 Top</div>
+        
+            <div class="bx-row">
+              <span class="bx-nm">MU</span>
+              <span class="bx-sec" style="background:#3B82F6">Technology</span>
+              <div class="bx-r">
+                <span class="bx-pct dn">-10.57%</span>
+                <span class="bx-vol">Vol 50.8M</span>
+              </div>
+            </div>
+            <div class="bx-row">
+              <span class="bx-nm">NVDA</span>
+              <span class="bx-sec" style="background:#3B82F6">Technology</span>
+              <div class="bx-r">
+                <span class="bx-pct dn">-1.25%</span>
+                <span class="bx-vol">Vol 145.8M</span>
+              </div>
+            </div>
+            <div class="bx-row">
+              <span class="bx-nm">META</span>
+              <span class="bx-sec" style="background:#0EA5E9">Communicatio</span>
+              <div class="bx-r">
+                <span class="bx-pct up">+8.81%</span>
+                <span class="bx-vol">Vol 45.5M</span>
+              </div>
+            </div>
+            <div class="bx-row">
+              <span class="bx-nm">MSFT</span>
+              <span class="bx-sec" style="background:#3B82F6">Technology</span>
+              <div class="bx-r">
+                <span class="bx-pct up">+3.02%</span>
+                <span class="bx-vol">Vol 48.0M</span>
+              </div>
+            </div>
+            <div class="bx-row">
+              <span class="bx-nm">TSLA</span>
+              <span class="bx-sec" style="background:#9CA3AF">Consumer Cyc</span>
+              <div class="bx-r">
+                <span class="bx-pct up">+1.12%</span>
+                <span class="bx-vol">Vol 40.0M</span>
+              </div>
+            </div>
+      </div>
+    </div>
+          </div>
+
+          <div class="sec">
+            <div class="sec-title">52주 신고가 종목 — S&P 500</div>
+            <div class="hl-grid">
+        <div class="hl-sec">
+          <div class="hl-sec-hd" style="border-left:3px solid #9CA3AF">
+            <span class="hl-sec-nm">📊 Financial Services</span>
+            <span class="hl-sec-cnt">8개</span>
+          </div>
+          <div class="hl-chips"><span class="hl-chip">
+              <span class="hl-nm">CB</span>
+              <span class="hl-pct up">+3.23%</span>
+            </span><span class="hl-chip">
+              <span class="hl-nm">USB</span>
+              <span class="hl-pct up">+2.58%</span>
+            </span><span class="hl-chip">
+              <span class="hl-nm">PNC</span>
+              <span class="hl-pct up">+2.19%</span>
+            </span><span class="hl-chip">
+              <span class="hl-nm">CFG</span>
+              <span class="hl-pct up">+2.50%</span>
+            </span><span class="hl-chip">
+              <span class="hl-nm">ALL</span>
+              <span class="hl-pct up">+2.18%</span>
+            </span><span class="hl-chip">
+              <span class="hl-nm">MTB</span>
+              <span class="hl-pct up">+1.66%</span>
+            </span></div>
+        </div>
+        <div class="hl-sec">
+          <div class="hl-sec-hd" style="border-left:3px solid #EF4444">
+            <span class="hl-sec-nm">#🧬 Healthcare</span>
+            <span class="hl-sec-cnt">4개</span>
+          </div>
+          <div class="hl-chips"><span class="hl-chip">
+              <span class="hl-nm">UNH</span>
+              <span class="hl-pct up">+2.62%</span>
+            </span><span class="hl-chip">
+              <span class="hl-nm">CNC</span>
+              <span class="hl-pct up">+6.48%</span>
+            </span><span class="hl-chip">
+              <span class="hl-nm">WST</span>
+              <span class="hl-pct up">+1.67%</span>
+            </span><span class="hl-chip">
+              <span class="hl-nm">DGX</span>
+              <span class="hl-pct up">+1.92%</span>
+            </span></div>
+        </div>
+        <div class="hl-sec">
+          <div class="hl-sec-hd" style="border-left:3px solid #9CA3AF">
+            <span class="hl-sec-nm">📊 Basic Materials</span>
+            <span class="hl-sec-cnt">1개</span>
+          </div>
+          <div class="hl-chips"><span class="hl-chip">
+              <span class="hl-nm">APD</span>
+              <span class="hl-pct up">+5.16%</span>
+            </span></div>
+        </div>
+        <div class="hl-sec">
+          <div class="hl-sec-hd" style="border-left:3px solid #6366F1">
+            <span class="hl-sec-nm">🏭 Industrials</span>
+            <span class="hl-sec-cnt">1개</span>
+          </div>
+          <div class="hl-chips"><span class="hl-chip">
+              <span class="hl-nm">UNP</span>
+              <span class="hl-pct up">+2.11%</span>
+            </span></div>
+        </div>
+        <div class="hl-sec">
+          <div class="hl-sec-hd" style="border-left:3px solid #0EA5E9">
+            <span class="hl-sec-nm">📡 Communication Services</span>
+            <span class="hl-sec-cnt">1개</span>
+          </div>
+          <div class="hl-chips"><span class="hl-chip">
+              <span class="hl-nm">EA</span>
+              <span class="hl-pct up">+0.20%</span>
+            </span></div>
+        </div></div>
+          </div>
+
+          <div class="sec">
+            <div class="sec-title">시장 레짐 신호 — S&P 500</div>
+            
+    <div class="rg-tags"><span class="rg-tag" style="background:#3B82F620;color:#3B82F6;border:1px solid #3B82F650">Technology 집중</span><span class="rg-tag" style="background:#F59E0B20;color:#F59E0B;border:1px solid #F59E0B50">신고가 러시</span><span class="rg-tag" style="background:#10B98120;color:#10B981;border:1px solid #10B98150">모멘텀 강화</span><span class="rg-tag" style="background:#EF444420;color:#EF4444;border:1px solid #EF444450">주도섹터 약세</span></div>
+    <div class="rg-txt">Technology에 자금 45% 집중. 52주 신고가 15개 — 추세 강화. 모멘텀 종목 9개 포착.</div>
+          </div>
+
+          <div class="sec">
+            <div class="sec-title">시간 지평별 전략 — S&P 500</div>
+            
+    <div class="strat-grid">
+      <div class="strat-card" style="border-top:3px solid #3B82F6">
+        <div class="strat-hd">
+          <span class="strat-lbl" style="color:#3B82F6">단기</span>
+          <span class="strat-period">1~5일</span>
+          <span class="strat-stance">관망·헤지</span>
+        </div>
+        <ul class="strat-pts"><li>주도섹터 Technology만 부분 트레이딩, 나머지 관망</li><li>신고가 15개 — 추세 약화, 무리한 추격 자제</li><li>하락 섹터 (6개) 비중 축소 우선</li></ul>
+      </div>
+      <div class="strat-card" style="border-top:3px solid #10B981">
+        <div class="strat-hd">
+          <span class="strat-lbl" style="color:#10B981">중기</span>
+          <span class="strat-period">1~3개월</span>
+          <span class="strat-stance">섹터 로테이션 집중</span>
+        </div>
+        <div class="strat-chips"><span class="st-chip">Technology</span><span class="st-chip">Communication Services</span><span class="st-chip">Consumer Cyclical</span></div>
+        <ul class="strat-pts"><li>강세 섹터 (5개) 집중, 약세 섹터 (6개) 축소</li><li>신고가 돌파 Technology 종목 중기 홀딩</li><li>크로스 시그널 종목 (S&P500∩Nasdaq200 동시 신고가) 우선 편입</li></ul>
+      </div>
+      <div class="strat-card" style="border-top:3px solid #F59E0B">
+        <div class="strat-hd">
+          <span class="strat-lbl" style="color:#F59E0B">장기</span>
+          <span class="strat-period">6개월+</span>
+          <span class="strat-stance">AI·반도체 구조적 성장 보유</span>
+        </div>
+        <ul class="strat-pts"><li>AI·반도체·클라우드 대형주 핵심 포지션 장기 유지</li><li>PEG 1 이하 기술 성장주 구간별 분할 적립</li><li>배당성장 + 자사주 매입 기업 복리 수익 극대화</li></ul>
+      </div>
+    </div>
+          </div>
+        </div>
+  
+        <div class="tab " id="tab-nasdaq100">
+          <div class="kpi-row" id="kpi-row-Nasdaq 200"><div class="kpi"><div class="kpi-lbl">Nasdaq 200 총 거래대금</div><div class="kpi-val">$346.7B</div><div class="kpi-sub">182개 종목</div></div><div class="kpi"><div class="kpi-lbl">최고 상승</div><div class="kpi-val" style="color:#EF4444">+16.62%</div><div class="kpi-sub">PRGS</div></div><div class="kpi"><div class="kpi-lbl">최대 하락</div><div class="kpi-val" style="color:#3B82F6">-11.77%</div><div class="kpi-sub">KLAC</div></div><div class="kpi"><div class="kpi-lbl">52주 신고가</div><div class="kpi-val" style="color:#3B82F6">2개</div><div class="kpi-sub">모멘텀 0개</div></div></div><div class="high-inline"><span class="hl-chip"><span class="hl-nm">EA</span><span class="bx-sec" style="background:#0EA5E9;margin:0 4px">Communic</span><span class="hl-pct up">+0.20%</span></span><span class="hl-chip"><span class="hl-nm">OSCR</span><span class="bx-sec" style="background:#EF4444;margin:0 4px">Healthca</span><span class="hl-pct up">+11.85%</span></span></div>
+
+          <div class="sec">
+            <div class="sec-title">섹터 자금흐름 — Nasdaq 200</div>
+            
+        <div class="sb-block">
+          <div class="sb-hd">
+            <div class="sb-left">
+              <span class="sb-ic">💻</span>
+              <span class="sb-nm">Technology</span>
+            </div>
+            <div class="sb-right">
+              <span class="sb-amt">$223.7B</span>
+              <span class="sb-badge up">+0.10%</span>
+              <span class="sb-badge">66종목</span>
+            </div>
+          </div>
+          <div class="sb-track"><div class="sb-fill" style="width:100%;background:#3B82F6"></div></div>
+          <div class="st-pills"><span class="st-pill">
+              <span class="st-name">MU</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$52.4B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-10.57%</span>
+            </span><span class="st-pill">
+              <span class="st-name">NVDA</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$28.8B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-1.25%</span>
+            </span><span class="st-pill">
+              <span class="st-name">MSFT</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$18.4B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+3.02%</span>
+            </span><span class="st-pill">
+              <span class="st-name">AMD</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$15.2B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-6.89%</span>
+            </span><span class="st-pill">
+              <span class="st-name">AAPL</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$14.8B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+1.73%</span>
+            </span><span class="st-pill">
+              <span class="st-name">AMAT</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$10.4B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-9.97%</span>
+            </span><span class="st-pill">
+              <span class="st-name">MRVL</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$9.2B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-8.67%</span>
+            </span><span class="st-pill">
+              <span class="st-name">AVGO</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$8.7B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-2.23%</span>
+            </span><span class="st-pill">
+              <span class="st-name">PLTR</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$7.3B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+7.77%</span>
+            </span><span class="st-pill">
+              <span class="st-name">LRCX</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$7.3B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-9.71%</span>
+            </span></div>
+        </div>
+        <div class="sb-block">
+          <div class="sb-hd">
+            <div class="sb-left">
+              <span class="sb-ic">📡</span>
+              <span class="sb-nm">Communication Services</span>
+            </div>
+            <div class="sb-right">
+              <span class="sb-amt">$52.8B</span>
+              <span class="sb-badge up">+2.54%</span>
+              <span class="sb-badge">17종목</span>
+            </div>
+          </div>
+          <div class="sb-track"><div class="sb-fill" style="width:23%;background:#0EA5E9"></div></div>
+          <div class="st-pills"><span class="st-pill">
+              <span class="st-name">META</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$27.9B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+8.81%</span>
+            </span><span class="st-pill">
+              <span class="st-name">GOOGL</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$9.6B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+1.07%</span>
+            </span><span class="st-pill">
+              <span class="st-name">GOOG</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$7.0B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+1.29%</span>
+            </span><span class="st-pill">
+              <span class="st-name">NFLX</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$3.2B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+3.91%</span>
+            </span><span class="st-pill">
+              <span class="st-name">CMCSA</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$1.2B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-2.02%</span>
+            </span><span class="st-pill">
+              <span class="st-name">TMUS</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$1.0B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+3.18%</span>
+            </span><span class="st-pill">
+              <span class="st-name">RBLX</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$794M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+6.56%</span>
+            </span><span class="st-pill">
+              <span class="st-name">TTWO</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$577M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+0.14%</span>
+            </span><span class="st-pill">
+              <span class="st-name">TTD</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$359M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+5.92%</span>
+            </span><span class="st-pill">
+              <span class="st-name">EA</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$354M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+0.20%</span>
+            </span></div>
+        </div>
+        <div class="sb-block">
+          <div class="sb-hd">
+            <div class="sb-left">
+              <span class="sb-ic">📊</span>
+              <span class="sb-nm">Consumer Cyclical</span>
+            </div>
+            <div class="sb-right">
+              <span class="sb-amt">$37.6B</span>
+              <span class="sb-badge up">+1.41%</span>
+              <span class="sb-badge">18종목</span>
+            </div>
+          </div>
+          <div class="sb-track"><div class="sb-fill" style="width:16%;background:#9CA3AF"></div></div>
+          <div class="st-pills"><span class="st-pill">
+              <span class="st-name">TSLA</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$17.0B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+1.12%</span>
+            </span><span class="st-pill">
+              <span class="st-name">AMZN</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$12.9B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+1.41%</span>
+            </span><span class="st-pill">
+              <span class="st-name">BKNG</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$1.3B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+2.47%</span>
+            </span><span class="st-pill">
+              <span class="st-name">MELI</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$866M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+2.64%</span>
+            </span><span class="st-pill">
+              <span class="st-name">PDD</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$842M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+8.18%</span>
+            </span><span class="st-pill">
+              <span class="st-name">ORLY</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$806M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+0.65%</span>
+            </span><span class="st-pill">
+              <span class="st-name">DASH</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$797M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+2.35%</span>
+            </span><span class="st-pill">
+              <span class="st-name">MAR</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$615M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-0.61%</span>
+            </span><span class="st-pill">
+              <span class="st-name">ABNB</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$486M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+2.94%</span>
+            </span><span class="st-pill">
+              <span class="st-name">ROST</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$478M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-0.45%</span>
+            </span></div>
+        </div>
+        <div class="sb-block">
+          <div class="sb-hd">
+            <div class="sb-left">
+              <span class="sb-ic">📊</span>
+              <span class="sb-nm">Financial Services</span>
+            </div>
+            <div class="sb-right">
+              <span class="sb-amt">$9.4B</span>
+              <span class="sb-badge up">+3.52%</span>
+              <span class="sb-badge">9종목</span>
+            </div>
+          </div>
+          <div class="sb-track"><div class="sb-fill" style="width:4%;background:#9CA3AF"></div></div>
+          <div class="st-pills"><span class="st-pill">
+              <span class="st-name">HOOD</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$3.0B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+8.35%</span>
+            </span><span class="st-pill">
+              <span class="st-name">COIN</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$1.9B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+8.93%</span>
+            </span><span class="st-pill">
+              <span class="st-name">COIN</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$1.9B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+8.93%</span>
+            </span><span class="st-pill">
+              <span class="st-name">PYPL</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$1.0B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+2.06%</span>
+            </span><span class="st-pill">
+              <span class="st-name">MARA</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$545M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-3.74%</span>
+            </span><span class="st-pill">
+              <span class="st-name">LPLA</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$325M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+4.11%</span>
+            </span><span class="st-pill">
+              <span class="st-name">AFRM</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$313M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+2.82%</span>
+            </span><span class="st-pill">
+              <span class="st-name">CLSK</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$260M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-6.39%</span>
+            </span><span class="st-pill">
+              <span class="st-name">LMND</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$126M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+6.58%</span>
+            </span></div>
+        </div>
+        <div class="sb-block">
+          <div class="sb-hd">
+            <div class="sb-left">
+              <span class="sb-ic">#🧬</span>
+              <span class="sb-nm">Healthcare</span>
+            </div>
+            <div class="sb-right">
+              <span class="sb-amt">$8.5B</span>
+              <span class="sb-badge up">+1.66%</span>
+              <span class="sb-badge">46종목</span>
+            </div>
+          </div>
+          <div class="sb-track"><div class="sb-fill" style="width:3%;background:#EF4444"></div></div>
+          <div class="st-pills"><span class="st-pill">
+              <span class="st-name">HIMS</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$1.1B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+8.36%</span>
+            </span><span class="st-pill">
+              <span class="st-name">GILD</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$838M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-0.29%</span>
+            </span><span class="st-pill">
+              <span class="st-name">AMGN</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$811M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-0.22%</span>
+            </span><span class="st-pill">
+              <span class="st-name">ISRG</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$780M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+1.18%</span>
+            </span><span class="st-pill">
+              <span class="st-name">REGN</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$731M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+0.19%</span>
+            </span><span class="st-pill">
+              <span class="st-name">VRTX</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$719M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+0.26%</span>
+            </span><span class="st-pill">
+              <span class="st-name">ILMN</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$394M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+4.58%</span>
+            </span><span class="st-pill">
+              <span class="st-name">IDXX</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$357M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+2.12%</span>
+            </span><span class="st-pill">
+              <span class="st-name">DXCM</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$330M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+2.24%</span>
+            </span><span class="st-pill">
+              <span class="st-name">ALGN</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$273M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+7.61%</span>
+            </span></div>
+        </div>
+        <div class="sb-block">
+          <div class="sb-hd">
+            <div class="sb-left">
+              <span class="sb-ic">📊</span>
+              <span class="sb-nm">Consumer Defensive</span>
+            </div>
+            <div class="sb-right">
+              <span class="sb-amt">$7.2B</span>
+              <span class="sb-badge up">+2.98%</span>
+              <span class="sb-badge">8종목</span>
+            </div>
+          </div>
+          <div class="sb-track"><div class="sb-fill" style="width:3%;background:#9CA3AF"></div></div>
+          <div class="st-pills"><span class="st-pill">
+              <span class="st-name">COST</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$2.7B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-1.15%</span>
+            </span><span class="st-pill">
+              <span class="st-name">PEP</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$1.3B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+4.25%</span>
+            </span><span class="st-pill">
+              <span class="st-name">MDLZ</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$721M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+2.61%</span>
+            </span><span class="st-pill">
+              <span class="st-name">DLTR</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$653M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+0.17%</span>
+            </span><span class="st-pill">
+              <span class="st-name">KDP</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$595M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+1.96%</span>
+            </span><span class="st-pill">
+              <span class="st-name">KHC</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$459M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+5.88%</span>
+            </span><span class="st-pill">
+              <span class="st-name">MNST</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$419M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+1.28%</span>
+            </span><span class="st-pill">
+              <span class="st-name">CELH</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$339M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+8.85%</span>
+            </span></div>
+        </div>
+        <div class="sb-block">
+          <div class="sb-hd">
+            <div class="sb-left">
+              <span class="sb-ic">🏭</span>
+              <span class="sb-nm">Industrials</span>
+            </div>
+            <div class="sb-right">
+              <span class="sb-amt">$3.1B</span>
+              <span class="sb-badge dn">-0.36%</span>
+              <span class="sb-badge">8종목</span>
+            </div>
+          </div>
+          <div class="sb-track"><div class="sb-fill" style="width:1%;background:#6366F1"></div></div>
+          <div class="st-pills"><span class="st-pill">
+              <span class="st-name">VRSK</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$603M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+2.33%</span>
+            </span><span class="st-pill">
+              <span class="st-name">FCEL</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$484M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-11.44%</span>
+            </span><span class="st-pill">
+              <span class="st-name">CPRT</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$437M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+2.13%</span>
+            </span><span class="st-pill">
+              <span class="st-name">JOBY</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$407M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-0.90%</span>
+            </span><span class="st-pill">
+              <span class="st-name">ODFL</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$352M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+0.63%</span>
+            </span><span class="st-pill">
+              <span class="st-name">PCAR</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$338M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+0.93%</span>
+            </span><span class="st-pill">
+              <span class="st-name">FAST</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$313M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-0.58%</span>
+            </span><span class="st-pill">
+              <span class="st-name">ACHR</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$205M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+4.02%</span>
+            </span></div>
+        </div>
+        <div class="sb-block">
+          <div class="sb-hd">
+            <div class="sb-left">
+              <span class="sb-ic">💡</span>
+              <span class="sb-nm">Utilities</span>
+            </div>
+            <div class="sb-right">
+              <span class="sb-amt">$3.1B</span>
+              <span class="sb-badge dn">-3.49%</span>
+              <span class="sb-badge">4종목</span>
+            </div>
+          </div>
+          <div class="sb-track"><div class="sb-fill" style="width:1%;background:#8B5CF6"></div></div>
+          <div class="st-pills"><span class="st-pill">
+              <span class="st-name">CEG</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$2.1B</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-4.78%</span>
+            </span><span class="st-pill">
+              <span class="st-name">XEL</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$466M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-0.75%</span>
+            </span><span class="st-pill">
+              <span class="st-name">EXC</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$465M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-0.77%</span>
+            </span><span class="st-pill">
+              <span class="st-name">FLNC</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$153M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-7.65%</span>
+            </span></div>
+        </div>
+        <div class="sb-block">
+          <div class="sb-hd">
+            <div class="sb-left">
+              <span class="sb-ic">🏢</span>
+              <span class="sb-nm">Real Estate</span>
+            </div>
+            <div class="sb-right">
+              <span class="sb-amt">$673M</span>
+              <span class="sb-badge up">+5.30%</span>
+              <span class="sb-badge">2종목</span>
+            </div>
+          </div>
+          <div class="sb-track"><div class="sb-fill" style="width:0%;background:#14B8A6"></div></div>
+          <div class="st-pills"><span class="st-pill">
+              <span class="st-name">OPEN</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$490M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+6.93%</span>
+            </span><span class="st-pill">
+              <span class="st-name">CSGP</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$183M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct up">+3.67%</span>
+            </span></div>
+        </div>
+        <div class="sb-block">
+          <div class="sb-hd">
+            <div class="sb-left">
+              <span class="sb-ic">⚡</span>
+              <span class="sb-nm">Energy</span>
+            </div>
+            <div class="sb-right">
+              <span class="sb-amt">$465M</span>
+              <span class="sb-badge dn">-2.17%</span>
+              <span class="sb-badge">1종목</span>
+            </div>
+          </div>
+          <div class="sb-track"><div class="sb-fill" style="width:0%;background:#F97316"></div></div>
+          <div class="st-pills"><span class="st-pill">
+              <span class="st-name">FANG</span>
+              <span class="st-sep">|</span>
+              <span class="st-amt">$465M</span>
+              <span class="st-sep">|</span>
+              <span class="st-pct dn">-2.17%</span>
+            </span></div>
+        </div>
+          </div>
+
+          <div class="sec">
+            <div class="sec-title">섹터 강도 스코어카드 — Nasdaq 200</div>
+            
+    <table class="sc-table">
+      <thead><tr><th>#</th><th>섹터</th><th>거래대금</th><th>강도</th><th>평균등락</th><th>종목수</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="sc-rk">1</td>
+          <td class="sc-sc">💻 Technology</td>
+          <td class="sc-am">$223.7B</td>
+          <td><div class="sc-br">
+            <div class="sc-track"><div class="sc-fill" style="width:100%;background:#3B82F6"></div></div>
+            <span class="sc-val">100</span>
+          </div></td>
+          <td class="sc-ch up">+0.10%</td>
+          <td class="sc-sh">66</td>
+        </tr>
+        <tr>
+          <td class="sc-rk">2</td>
+          <td class="sc-sc">📡 Communication Services</td>
+          <td class="sc-am">$52.8B</td>
+          <td><div class="sc-br">
+            <div class="sc-track"><div class="sc-fill" style="width:23%;background:#0EA5E9"></div></div>
+            <span class="sc-val">23</span>
+          </div></td>
+          <td class="sc-ch up">+2.54%</td>
+          <td class="sc-sh">17</td>
+        </tr>
+        <tr>
+          <td class="sc-rk">3</td>
+          <td class="sc-sc">📊 Consumer Cyclical</td>
+          <td class="sc-am">$37.6B</td>
+          <td><div class="sc-br">
+            <div class="sc-track"><div class="sc-fill" style="width:16%;background:#9CA3AF"></div></div>
+            <span class="sc-val">16</span>
+          </div></td>
+          <td class="sc-ch up">+1.41%</td>
+          <td class="sc-sh">18</td>
+        </tr>
+        <tr>
+          <td class="sc-rk">4</td>
+          <td class="sc-sc">📊 Financial Services</td>
+          <td class="sc-am">$9.4B</td>
+          <td><div class="sc-br">
+            <div class="sc-track"><div class="sc-fill" style="width:4%;background:#9CA3AF"></div></div>
+            <span class="sc-val">4</span>
+          </div></td>
+          <td class="sc-ch up">+3.52%</td>
+          <td class="sc-sh">9</td>
+        </tr>
+        <tr>
+          <td class="sc-rk">5</td>
+          <td class="sc-sc">#🧬 Healthcare</td>
+          <td class="sc-am">$8.5B</td>
+          <td><div class="sc-br">
+            <div class="sc-track"><div class="sc-fill" style="width:3%;background:#EF4444"></div></div>
+            <span class="sc-val">3</span>
+          </div></td>
+          <td class="sc-ch up">+1.66%</td>
+          <td class="sc-sh">46</td>
+        </tr>
+        <tr>
+          <td class="sc-rk">6</td>
+          <td class="sc-sc">📊 Consumer Defensive</td>
+          <td class="sc-am">$7.2B</td>
+          <td><div class="sc-br">
+            <div class="sc-track"><div class="sc-fill" style="width:3%;background:#9CA3AF"></div></div>
+            <span class="sc-val">3</span>
+          </div></td>
+          <td class="sc-ch up">+2.98%</td>
+          <td class="sc-sh">8</td>
+        </tr>
+        <tr>
+          <td class="sc-rk">7</td>
+          <td class="sc-sc">🏭 Industrials</td>
+          <td class="sc-am">$3.1B</td>
+          <td><div class="sc-br">
+            <div class="sc-track"><div class="sc-fill" style="width:1%;background:#6366F1"></div></div>
+            <span class="sc-val">1</span>
+          </div></td>
+          <td class="sc-ch dn">-0.36%</td>
+          <td class="sc-sh">8</td>
+        </tr>
+        <tr>
+          <td class="sc-rk">8</td>
+          <td class="sc-sc">💡 Utilities</td>
+          <td class="sc-am">$3.1B</td>
+          <td><div class="sc-br">
+            <div class="sc-track"><div class="sc-fill" style="width:1%;background:#8B5CF6"></div></div>
+            <span class="sc-val">1</span>
+          </div></td>
+          <td class="sc-ch dn">-3.49%</td>
+          <td class="sc-sh">4</td>
+        </tr>
+        <tr>
+          <td class="sc-rk">9</td>
+          <td class="sc-sc">🏢 Real Estate</td>
+          <td class="sc-am">$673M</td>
+          <td><div class="sc-br">
+            <div class="sc-track"><div class="sc-fill" style="width:0%;background:#14B8A6"></div></div>
+            <span class="sc-val">0</span>
+          </div></td>
+          <td class="sc-ch up">+5.30%</td>
+          <td class="sc-sh">2</td>
+        </tr>
+        <tr>
+          <td class="sc-rk">10</td>
+          <td class="sc-sc">⚡ Energy</td>
+          <td class="sc-am">$465M</td>
+          <td><div class="sc-br">
+            <div class="sc-track"><div class="sc-fill" style="width:0%;background:#F97316"></div></div>
+            <span class="sc-val">0</span>
+          </div></td>
+          <td class="sc-ch dn">-2.17%</td>
+          <td class="sc-sh">1</td>
+        </tr></tbody>
+    </table>
+          </div>
+
+          <div class="sec">
+            <div class="sec-title">주요 종목 현황 — Nasdaq 200</div>
+            
+    <div class="box-grid">
+      <div class="bx">
+        <div class="bx-hd">⚡ 모멘텀 (신고가+거래대금)</div>
+        
+      </div>
+      <div class="bx">
+        <div class="bx-hd">🚀 상승률 Top</div>
+        
+            <div class="bx-row">
+              <span class="bx-nm">PRGS</span>
+              <span class="bx-sec" style="background:#3B82F6">Technology</span>
+              <div class="bx-r">
+                <span class="bx-pct up">+16.62%</span>
+                
+              </div>
+            </div>
+            <div class="bx-row">
+              <span class="bx-nm">LUNG</span>
+              <span class="bx-sec" style="background:#EF4444">Healthcare</span>
+              <div class="bx-r">
+                <span class="bx-pct up">+13.08%</span>
+                
+              </div>
+            </div>
+            <div class="bx-row">
+              <span class="bx-nm">FATE</span>
+              <span class="bx-sec" style="background:#EF4444">Healthcare</span>
+              <div class="bx-r">
+                <span class="bx-pct up">+11.85%</span>
+                
+              </div>
+            </div>
+            <div class="bx-row">
+              <span class="bx-nm">OSCR</span>
+              <span class="bx-sec" style="background:#EF4444">Healthcare</span>
+              <div class="bx-r">
+                <span class="bx-pct up">+11.85%</span>
+                
+              </div>
+            </div>
+            <div class="bx-row">
+              <span class="bx-nm">COIN</span>
+              <span class="bx-sec" style="background:#9CA3AF">Financial Se</span>
+              <div class="bx-r">
+                <span class="bx-pct up">+8.93%</span>
+                
+              </div>
+            </div>
+      </div>
+      <div class="bx">
+        <div class="bx-hd">📉 하락률 Top</div>
+        
+            <div class="bx-row">
+              <span class="bx-nm">KLAC</span>
+              <span class="bx-sec" style="background:#3B82F6">Technology</span>
+              <div class="bx-r">
+                <span class="bx-pct dn">-11.77%</span>
+                
+              </div>
+            </div>
+            <div class="bx-row">
+              <span class="bx-nm">FCEL</span>
+              <span class="bx-sec" style="background:#6366F1">Industrials</span>
+              <div class="bx-r">
+                <span class="bx-pct dn">-11.44%</span>
+                
+              </div>
+            </div>
+            <div class="bx-row">
+              <span class="bx-nm">MU</span>
+              <span class="bx-sec" style="background:#3B82F6">Technology</span>
+              <div class="bx-r">
+                <span class="bx-pct dn">-10.57%</span>
+                
+              </div>
+            </div>
+            <div class="bx-row">
+              <span class="bx-nm">AMAT</span>
+              <span class="bx-sec" style="background:#3B82F6">Technology</span>
+              <div class="bx-r">
+                <span class="bx-pct dn">-9.97%</span>
+                
+              </div>
+            </div>
+            <div class="bx-row">
+              <span class="bx-nm">LRCX</span>
+              <span class="bx-sec" style="background:#3B82F6">Technology</span>
+              <div class="bx-r">
+                <span class="bx-pct dn">-9.71%</span>
+                
+              </div>
+            </div>
+      </div>
+      <div class="bx">
+        <div class="bx-hd">💰 거래대금 Top</div>
+        
+            <div class="bx-row">
+              <span class="bx-nm">MU</span>
+              <span class="bx-sec" style="background:#3B82F6">Technology</span>
+              <div class="bx-r">
+                <span class="bx-pct dn">-10.57%</span>
+                <span class="bx-vol">Vol 50.8M</span>
+              </div>
+            </div>
+            <div class="bx-row">
+              <span class="bx-nm">NVDA</span>
+              <span class="bx-sec" style="background:#3B82F6">Technology</span>
+              <div class="bx-r">
+                <span class="bx-pct dn">-1.25%</span>
+                <span class="bx-vol">Vol 145.8M</span>
+              </div>
+            </div>
+            <div class="bx-row">
+              <span class="bx-nm">META</span>
+              <span class="bx-sec" style="background:#0EA5E9">Communicatio</span>
+              <div class="bx-r">
+                <span class="bx-pct up">+8.81%</span>
+                <span class="bx-vol">Vol 45.5M</span>
+              </div>
+            </div>
+            <div class="bx-row">
+              <span class="bx-nm">MSFT</span>
+              <span class="bx-sec" style="background:#3B82F6">Technology</span>
+              <div class="bx-r">
+                <span class="bx-pct up">+3.02%</span>
+                <span class="bx-vol">Vol 48.0M</span>
+              </div>
+            </div>
+            <div class="bx-row">
+              <span class="bx-nm">TSLA</span>
+              <span class="bx-sec" style="background:#9CA3AF">Consumer Cyc</span>
+              <div class="bx-r">
+                <span class="bx-pct up">+1.12%</span>
+                <span class="bx-vol">Vol 40.0M</span>
+              </div>
+            </div>
+      </div>
+    </div>
+          </div>
+
+          <div class="sec">
+            <div class="sec-title">52주 신고가 종목 — Nasdaq 200</div>
+            <div class="hl-grid">
+        <div class="hl-sec">
+          <div class="hl-sec-hd" style="border-left:3px solid #0EA5E9">
+            <span class="hl-sec-nm">📡 Communication Services</span>
+            <span class="hl-sec-cnt">1개</span>
+          </div>
+          <div class="hl-chips"><span class="hl-chip">
+              <span class="hl-nm">EA</span>
+              <span class="hl-pct up">+0.20%</span>
+            </span></div>
+        </div>
+        <div class="hl-sec">
+          <div class="hl-sec-hd" style="border-left:3px solid #EF4444">
+            <span class="hl-sec-nm">#🧬 Healthcare</span>
+            <span class="hl-sec-cnt">1개</span>
+          </div>
+          <div class="hl-chips"><span class="hl-chip">
+              <span class="hl-nm">OSCR</span>
+              <span class="hl-pct up">+11.85%</span>
+            </span></div>
+        </div></div>
+          </div>
+
+          <div class="sec">
+            <div class="sec-title">시장 레짐 신호 — Nasdaq 200</div>
+            
+    <div class="rg-tags"><span class="rg-tag" style="background:#3B82F620;color:#3B82F6;border:1px solid #3B82F650">Technology 집중</span><span class="rg-tag" style="background:#3B82F620;color:#3B82F6;border:1px solid #3B82F650">주도섹터 강세</span></div>
+    <div class="rg-txt">Technology에 자금 64% 집중. 52주 신고가 2개 — 신중 접근. 모멘텀 종목 0개 포착.</div>
+          </div>
+
+          <div class="sec">
+            <div class="sec-title">시간 지평별 전략 — Nasdaq 200</div>
+            
+    <div class="strat-grid">
+      <div class="strat-card" style="border-top:3px solid #3B82F6">
+        <div class="strat-hd">
+          <span class="strat-lbl" style="color:#3B82F6">단기</span>
+          <span class="strat-period">1~5일</span>
+          <span class="strat-stance">선별적 모멘텀</span>
+        </div>
+        <ul class="strat-pts"><li>주도섹터 Technology 거래대금 상위 종목 단기 트레이딩</li><li>신고가 2개 — 종목 선별 신중하게</li><li>상승률 상위 (PRGS, LUNG, FATE) 추격보다 눌림목 진입</li></ul>
+      </div>
+      <div class="strat-card" style="border-top:3px solid #10B981">
+        <div class="strat-hd">
+          <span class="strat-lbl" style="color:#10B981">중기</span>
+          <span class="strat-period">1~3개월</span>
+          <span class="strat-stance">광범위 상승 — 전 섹터 비중 확대</span>
+        </div>
+        <div class="strat-chips"><span class="st-chip">Technology</span><span class="st-chip">Communication Services</span><span class="st-chip">Consumer Cyclical</span></div>
+        <ul class="strat-pts"><li>전 섹터 동반 상승 — Technology, Communication Services 중심 비중 확대</li><li>신고가 돌파 종목 (2개) 분할 매수</li><li>주도섹터 교체 신호 시 2위 섹터로 선제 이동</li></ul>
+      </div>
+      <div class="strat-card" style="border-top:3px solid #F59E0B">
+        <div class="strat-hd">
+          <span class="strat-lbl" style="color:#F59E0B">장기</span>
+          <span class="strat-period">6개월+</span>
+          <span class="strat-stance">AI·반도체 구조적 성장 보유</span>
+        </div>
+        <ul class="strat-pts"><li>AI·반도체·클라우드 대형주 핵심 포지션 장기 유지</li><li>PEG 1 이하 기술 성장주 구간별 분할 적립</li><li>배당성장 + 자사주 매입 기업 복리 수익 극대화</li></ul>
+      </div>
+    </div>
+          </div>
+        </div>
+  
+    <div class="tab" id="tab-cross">
+      <div class="sec">
+        <div class="sec-title">⚡ 크로스 시그널 — S&amp;P500 ∩ Nasdaq200 동시 신고가</div>
+        <div class="cross-desc">S&amp;P 500 <em>AND</em> Nasdaq 200 동시 52주 신고가 — 1종목</div><div class="bx">
+        <div class="bx-row">
+          <span class="bx-nm">EA</span>
+          <span class="bx-sec" style="background:#0EA5E9">Communicatio</span>
+          <div class="bx-r">
+            <span class="bx-pct up">+0.20%</span>
+            <span class="bx-vol">$354M</span>
+          </div>
+        </div></div>
+      </div>
+    </div>
+
+</div>
+<script>
+function sw(tab, btn) {
+  document.querySelectorAll('.mkt-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  ['sp500','nasdaq100','cross'].forEach(function(id) {
+    document.getElementById('tab-' + id).classList.remove('active');
+  });
+  document.getElementById('tab-' + tab).classList.add('active');
+}
+</script>
+</body>
+</html>
